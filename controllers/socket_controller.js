@@ -87,6 +87,9 @@ const handleUserJoined = function(username, room_id, callback) {
 
 // Handle when a user has joined the chat
 const handleUserFire = function(username, room_id, time) {
+	
+
+
 	// debug(`User ${username} with socket id ${this.id} wants to join room '${room_id}'`);
 	function randomColumnRow () {
 		return Math.ceil(Math.random() * 8)
@@ -96,6 +99,37 @@ const handleUserFire = function(username, room_id, time) {
 	const column = randomColumnRow();
 
 	const room = rooms.find(rom => rom.id === room_id)
+
+	if (!room.points) {
+        room.points = []
+    }
+    const point = { 
+		username: username,point: time
+    }
+	
+    room.points.push(point)
+    console.log({rooms});
+
+	room.points.forEach(element => {
+		console.log(element);
+		if (username === element.username) {
+			element.point
+			console.log(room.points);
+		}
+
+		room.users[this.id] = username;
+
+
+
+// broadcast list of users in room to all connected sockets EXCEPT ourselves
+
+        this.broadcast.to(room.id).emit('room:point', username);
+
+        console.log(point)
+	});
+	
+
+	
 		//  { --> Room
 		// 	id: 'room1',
 		// 	name: 'Room one',
@@ -104,9 +138,12 @@ const handleUserFire = function(username, room_id, time) {
 		// 		yZk0ubEbX_hP72jmAAAH: 'daniel'
 		// 	}
 		// }
+
   
 	console.log({room, username, time})
 	io.to(room.id).emit('damageDone', username, time, row, column);
+
+		
 }
 
 

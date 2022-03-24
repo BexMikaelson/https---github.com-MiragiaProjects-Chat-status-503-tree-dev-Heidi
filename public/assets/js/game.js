@@ -120,7 +120,7 @@ usernameForm.addEventListener('submit', e => {
 			chatWrapperEl.classList.remove('hide');
 
 			// set room name as chat title
-			document.querySelector('#chat-title').innerText = status.roomName;
+			document.querySelector('#room').innerText = status.roomName;
 
 			// focus on inputMessage
 			messageEl.focus();
